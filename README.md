@@ -35,7 +35,8 @@
 4. [Requerimientos](#4-requerimientos-de-información)<br>
     4.1 [Información de Registro](#41-información-de-registro)<br>
     4.2 [Información de Consulta](#42-información-de-consulta)<br>
-    4.3 [Persistencia Futura](#43-persistencia-futura)
+    4.3 [Persistencia Futura](#43-persistencia-futura)<br>
+    4.4 [Usuarios Mock (Autenticación Simulada)](#44-usuarios-mock-autenticación-simulada---fase-1)
 5. [Roadmap de desarrollo](#5-roadmap-de-desarrollo-por-fases)<br>
     5.1 [Fase 1 - Frontend Web](#51-fase-1-frontend-web--prototipado-de-datos-local-html-csstailwindbootstrap-js-ajax)<br>
     5.2 [Fase 2 - Backend y Persistencia](#52-fase-2-backend-lógica-de-negocio-y-persistencia-fastapi--postgresqlmysql)<br>
@@ -74,7 +75,7 @@ El entorno de comunidades estudiantiles en ESPOL enfrenta tres desafíos crític
 El sistema interactúa exclusivamente con la comunidad e instituciones de ESPOL, segmentados en cuatro perfiles operativos:
 1. **Estudiante Politécnico:** Usuario base en busca de comunidades o eventos.
 2. **Miembro del Club:** Estudiante aceptado formalmente dentro de una organización.
-3. **Líder de Club:** Estudiante miembro de la directiva con control administrativo sobre **un único** club, aplica para roles creados por el líder/presidente, como los siguientes roles que puede crear: presidente/a, vicepresidente/a, secretario/a.
+3. **Líder de Club:** Estudiante miembro de la directiva con control administrativo sobre **un único** club. Su cargo **no se guarda como texto libre**, sino mediante un `role_id` que apunta a la tabla de Roles. Todo club o capítulo nace con **tres roles directivos predeterminados** (`is_default: true`): **Presidente/a, Vicepresidente/a y Secretario/a**. Sobre esa base, el Líder puede crear roles personalizados adicionales (ej. *Staff de Eventos*) y asignarles permisos granulares.
 4. **Administrador GBP:** Personal institucional encargado de supervisar la validez legal y operativa de los clubes, con capacidad de crear nuevos clubes y/o capítulos estudiantiles asignando al líder de la directiva para su debida gestión.
 
 ### 2.2 Roles y Permisos
@@ -141,15 +142,18 @@ Como este README actúa como guía de decisión para el desarrollo inicial, se e
 ## 4. Requerimientos de Información
 
 ### 4.1 Información de Registro
-Datos para **Estudiantes Politécnicos**
-```json 
+
+> **Convención de idioma:** los valores que viajan a la base de datos y enumeraciones de estado se escriben en **inglés** (`Pending`, `Active`...); la capa de presentación (UI) los traduce al **español** para el usuario final.
+
+**Estudiante Politécnico** — La matrícula (`enrollment`) es el **identificador único institucional** (clave natural). La edad **no se almacena**: se deriva de `birth_date`. Las pertenencias a clubes y el cargo de líder ya **no se embeben aquí**; se modelan en la entidad `Membership`.
+```json
 {
   "id": 1,
   "enrollment": "202311346",
   "first_name": "Kevin",
-  "last_name": "xxxxx",
-  "age": 22,
-  "email": "xxxx@espol.edu.ec",
+  "last_name": "Maldonado",
+  "birth_date": "2003-05-14",
+  "email": "kmaldon@espol.edu.ec",
   "semester": 6,
   "faculty": "FIEC",
   "career": "Computación",
@@ -158,32 +162,69 @@ Datos para **Estudiantes Politécnicos**
   "social_media": [
     { "network": "Instagram", "link": "https://instagram.com/xxxx" },
     { "network": "LinkedIn", "link": "https://linkedin.com/in/xxxx" }
-  ],
-  "memberships": [
-    {
-      "club_id": 2,
-      "role_id": 10
-    }
-  ],
-  "leader_profile": {
-    "club_id": 1,
-    "position": "Vicepresidente"
-  }
+  ]
 }
 ```
 
-Datos para **Roles** personalizados:
+**Rol** — Todo cargo (directivo o personalizado) vive en esta tabla; el estudiante solo guarda el `role_id` a través de su `Membership`. Los tres roles directivos (`is_default: true`) se crean automáticamente al dar de alta un club. El bloque `permissions` es un **diccionario extensible**: agregar una nueva capacidad solo requiere añadir una clave; una clave ausente se interpreta como `false`.
 ```json
 {
   "id": 10,
   "club_id": 2,
   "role_name": "Staff de Eventos",
-  "can_scan_qr": true,
-  "can_manage_docs": false
+  "is_default": false,
+  "is_leadership": false,
+  "permissions": {
+    "access_web_panel": false,
+    "manage_club_info": false,
+    "manage_members": false,
+    "manage_roles": false,
+    "manage_forms": false,
+    "manage_events": false,
+    "scan_event_qr": true,
+    "manage_documents": false,
+    "submit_gbp_reports": false
+  }
 }
 ```
 
-Datos para el **Club y Capítulos Estudiantiles**:
+Ejemplo de **rol directivo predeterminado** (`Presidente/a`), con todos los permisos activos:
+```json
+{
+  "id": 7,
+  "club_id": 2,
+  "role_name": "Presidente/a",
+  "is_default": true,
+  "is_leadership": true,
+  "permissions": {
+    "access_web_panel": true,
+    "manage_club_info": true,
+    "manage_members": true,
+    "manage_roles": true,
+    "manage_forms": true,
+    "manage_events": true,
+    "scan_event_qr": true,
+    "manage_documents": true,
+    "submit_gbp_reports": true
+  }
+}
+```
+
+**Membership** — Entidad propia que materializa la relación N:M *estudiante–club* con su rol y vigencia por término académico. Sustituye al arreglo embebido del modelo anterior y da soporte directo a la **RN-1** (un solo club con rol directivo) y a la **RN-4** (caducidad por PAO mediante `valid_from` / `valid_until`).
+```json
+{
+  "id": 2001,
+  "student_id": 1,
+  "club_id": 2,
+  "role_id": 7,
+  "pao_period": "2026-I",
+  "valid_from": "2026-05-01",
+  "valid_until": "2026-09-15",
+  "status": "Active"
+}
+```
+
+**Club y Capítulos Estudiantiles**:
 ```json
 {
   "id": 2,
@@ -206,23 +247,57 @@ Datos para el **Club y Capítulos Estudiantiles**:
 }
 ```
 
-Datos para **Solicitud o Formularios**:
+**Definición de Formulario Dinámico (`Form`)** — Modela el **esquema** que el Líder construye en el panel web; es lo que la app móvil lee para renderizar los campos y lo que el backend usa para validar. Sirve tanto para membresía (`form_type: "Membership"`) como para eventos (`form_type: "Event"`, con `event_id`). Cada campo tiene un `field_id` estable que es la clave por la que se guardan las respuestas.
+```json
+{
+  "id": 301,
+  "club_id": 2,
+  "form_type": "Membership",
+  "event_id": null,
+  "title": "Formulario de Inscripción - KOKOA",
+  "is_active": true,
+  "fields": [
+    {
+      "field_id": "q1",
+      "label": "¿Por qué quieres unirte?",
+      "type": "textarea",
+      "required": true,
+      "order": 1,
+      "options": [],
+      "validation": { "max_length": 500 }
+    },
+    {
+      "field_id": "q2",
+      "label": "Disponibilidad horaria",
+      "type": "select",
+      "required": true,
+      "order": 2,
+      "options": ["Mañana (08:00-12:00)", "Tarde (14:00-17:00)", "Noche (18:00-21:00)"],
+      "validation": {}
+    }
+  ]
+}
+```
+> Tipos de campo soportados (`type`): `text`, `textarea`, `number`, `date`, `select`, `radio`, `checkbox`.
+
+**Solicitud de Membresía (`MembershipApplication`)** — Guarda las **respuestas** referenciando el `form_id` y cada `field_id` del esquema anterior (ya no la pregunta como texto suelto, evitando inconsistencias si el formulario cambia).
 ```json
 {
   "id": 501,
   "student_id": 1,
   "club_id": 2,
+  "form_id": 301,
   "submitted_at": "2026-06-19T12:00:00Z",
-  "dynamic_form_responses": [
-    { "question": "¿Por qué quieres unirte?", "answer": "Me apasiona el código abierto." },
-    { "question": "Disponibilidad horaria", "answer": "Franja de la tarde (14:00 - 17:00)" }
+  "responses": [
+    { "field_id": "q1", "answer": "Me apasiona el código abierto." },
+    { "field_id": "q2", "answer": "Tarde (14:00-17:00)" }
   ],
   "status": "Pending",
   "leader_feedback": null
 }
 ```
 
-Datos para **Eventos** que serán para GBP: 
+**Evento** — Se vincula a su formulario de registro (`registration_form_id`) y declara la fecha límite de inscripción (`registration_deadline`), que la app usa para habilitar/bloquear el registro.
 ```json
 {
   "id": 50,
@@ -234,6 +309,8 @@ Datos para **Eventos** que serán para GBP:
   "planned_place": "Auditorio FIEC",
   "description": "Aprende los comandos básicos de Git y GitHub para proyectos colaborativos.",
   "marketing_image": "https://storage.espolclub.com/events/git-taller.png",
+  "registration_form_id": 302,
+  "registration_deadline": "2026-07-14T23:59:00Z",
   "administrative_data": {
     "objective": "Introducir a los estudiantes de primer año al control de versiones.",
     "sdg": ["Educación de Calidad", "Industria, Innovación e Infraestructura"],
@@ -247,19 +324,40 @@ Datos para **Eventos** que serán para GBP:
 }
 ```
 
-Datos para **Asistencia a eventos**:
+**Inscripción a Evento (`EventRegistration`)** — Entidad intermedia (antes inexistente) que representa al estudiante **ya inscrito y con credencial QR, pero aún sin asistir**. Es la fuente de la métrica *Inscritos vs. Asistentes* y la dueña del token QR.
+```json
+{
+  "id": 7001,
+  "event_id": 50,
+  "student_id": 1,
+  "form_id": 302,
+  "registered_at": "2026-06-19T12:00:00Z",
+  "responses": [
+    { "field_id": "f1", "answer": "Primer año" }
+  ],
+  "qr_token": "b7f3e9a1c2d4...token-opaco-firmado-por-servidor",
+  "qr_status": "Active",
+  "attendance_status": "Registered"
+}
+```
+
+> **Diseño del QR (token opaco/firmado):** el `qr_token` es un valor **opaco generado y firmado por el servidor** (no contiene `student_id` ni `event_id` legibles), almacenado en la inscripción. El QR que ve el estudiante solo transporta ese token. Al escanear, el Staff envía el token al backend, que lo **valida contra la BD**: si es válido y `qr_status == "Active"`, registra la asistencia y marca el token como `Used`, impidiendo el reescaneo. Cualquier token alterado o reutilizado se rechaza.
+
+**Asistencia a Evento (`EventAttendance`)** — Se crea **solo** al validar exitosamente el token. Referencia la inscripción de origen y exige unicidad **`UNIQUE (event_id, student_id)`** para evitar duplicados.
 ```json
 {
   "id": 8001,
+  "registration_id": 7001,
   "event_id": 50,
   "student_id": 1,
   "scanned_at": "2026-06-19T15:45:00Z",
   "scanned_by_staff_id": 3,
+  "qr_token_validated": "b7f3e9a1c2d4...token-opaco-firmado-por-servidor",
   "status": "Attended"
 }
 ```
 
-Datos para el **Tramite de Documentos** GBP:
+**Trámite de Documentos GBP (`GbpDocumentProcess`)**:
 ```json
 {
   "id": 901,
@@ -317,26 +415,91 @@ Para asegurar la integridad lógica en la Base de Datos y las validaciones del B
 #### 1. Ciclo de Vida de una Solicitud de Membresía (`MembershipApplication`)
 Cualquier postulación transita estrictamente por los siguientes estados discretos:
 * `Pending`: Estado inicial cuando el estudiante envía el formulario desde la App.
-* `Approved`: El Líder acepta la solicitud. El registro se congela y el usuario adquiere pertenencia al club.
+* `Approved`: El Líder acepta la solicitud. El registro se congela y el sistema **genera una `Membership` activa** para el usuario en el club.
 * `Rejected`: El Líder niega la solicitud. Se activa la obligatoriedad del campo `leader_feedback` con la justificación del rechazo.
 
-#### 2. Ciclo de Vida del Trámite de Rendición de Cuentas (`GbpDocumentProcess`)
+#### 2. Ciclo de Vida de una Membresía (`Membership`)
+La pertenencia de un estudiante a un club se rige por su vigencia (`valid_from` / `valid_until`) y su estado, dando soporte a la **RN-4 (caducidad por PAO)**:
+* `Active`: Membresía vigente dentro del PAO en curso. El estudiante goza de los permisos de su `role_id`.
+* `Frozen`: Estado al cierre del PAO. La nómina se "congela" como evidencia histórica auditable; el acceso operativo queda en pausa hasta la renovación.
+* `Expired`: Pasó `valid_until` y el Líder no renovó la nómina para el nuevo PAO.
+* `Revoked`: Revocación explícita (ej. GBP retira el liderazgo, o el Líder da de baja a un miembro). Para roles directivos, libera la **RN-1** para asignar un nuevo Líder.
+
+#### 3. Ciclo de Vida del Trámite de Rendición de Cuentas (`GbpDocumentProcess`)
 El flujo documental ante la Gerencia de Bienestar Politécnico se rige bajo la siguiente jerarquía de estados:
 * `Submitted`: El líder del club carga el reporte (PDF) de nóminas o evidencias. Queda bloqueado para edición por parte del club.
 * `Under Review`: El administrador de GBP abre el documento para su auditoría.
 * `Approved`: GBP valida que la información cumple con los lineamientos institucionales. El club queda certificado para el PAO vigente.
 * `Rejected`: GBP deniega el reporte. El sistema exige llenar el campo `review_feedback` y devuelve el trámite al club, reabriendo la posibilidad de que el líder vuelva a subir un archivo corregido.
 
-#### 3. Modelo de Captura de Asistencia Transaccional (`EventAttendance`)
+#### 4. Ciclo de Vida de la Inscripción y la Credencial QR (`EventRegistration`)
+Separa la **inscripción** (con credencial emitida) de la **asistencia** (validada presencialmente), habilitando la métrica *Inscritos vs. Asistentes Reales*:
+* `attendance_status`: `Registered` (inscrito, aún no asiste) → `Attended` (QR validado) → `NoShow` (evento finalizado sin escaneo).
+* `qr_status`: `Active` (token válido y vigente) → `Used` (ya validado, no permite reescaneo) → `Expired` (evento finalizado o credencial caducada).
+* El `qr_token` es **opaco y firmado por el servidor**: no expone datos del usuario y solo es verificable contra la BD, garantizando que un token alterado, ajeno o ya usado sea rechazado.
+
+#### 5. Modelo de Captura de Asistencia Transaccional (`EventAttendance`)
 Para auditar las evidencias de los eventos y evitar fraudes de asistencia, cada registro guardará obligatoriamente los siguientes puntos de datos inmutables al momento del escaneo QR:
+* `registration_id`: Llave foránea a la `EventRegistration` que originó la credencial validada.
 * `event_id`: Llave foránea que conecta al evento en cuestión.
 * `student_id`: Llave foránea del alumno dueño del código QR.
 * `scanned_at`: Marca de tiempo (Timestamp con zona horaria) generada por el servidor al momento exacto de procesar el escaneo.
-* `scanned_by_staff_id`: Identificador único del miembro de la directiva o Staff que realizó la lectura del QR desde su dispositivo móvil, asegurando la trazabilidad del proceso.
+* `scanned_by_staff_id`: Identificador único del miembro de la directiva o Staff que realizó la lectura del QR, asegurando la trazabilidad del proceso.
+* **Restricción de unicidad:** `UNIQUE (event_id, student_id)` impide a nivel de base de datos cualquier registro de asistencia duplicado por reescaneo.
 
 --- 
 
-## 5. Roadmap de Desarrollo por Fases
+### 4.4 Usuarios Mock (Autenticación Simulada - Fase 1)
+
+Mientras no exista la autenticación institucional real (que llegará en la Fase 2 vía **JWT**), el inicio de sesión del prototipo se resuelve contra un set de **usuarios mock** servidos desde un `.json` local. Se provee **un usuario por cada rol** para poder visualizar cada perfil en acción. El login se valida por `enrollment` (identificador único) + `password_mock`.
+
+> ⚠️ Las contraseñas en texto plano son **intencionales y exclusivas del prototipo**. En la Fase 2 se reemplazan por credenciales institucionales y tokens firmados.
+
+```json
+[
+  {
+    "enrollment": "202311346",
+    "password_mock": "estudiante123",
+    "email": "estudiante@espol.edu.ec",
+    "display_role": "Estudiante Politécnico",
+    "club_id": null,
+    "role_id": null
+  },
+  {
+    "enrollment": "202055789",
+    "password_mock": "miembro123",
+    "email": "miembro@espol.edu.ec",
+    "display_role": "Miembro del Club",
+    "club_id": 2,
+    "role_id": 11
+  },
+  {
+    "enrollment": "201899001",
+    "password_mock": "lider123",
+    "email": "lider@espol.edu.ec",
+    "display_role": "Líder de Club",
+    "club_id": 2,
+    "role_id": 7
+  },
+  {
+    "enrollment": "GBP-001",
+    "password_mock": "gbp123",
+    "email": "bienestar@espol.edu.ec",
+    "display_role": "Administrador GBP",
+    "club_id": null,
+    "role_id": null
+  }
+]
+```
+
+| Rol simulado | `enrollment` | Contraseña | Entorno de prueba |
+| :--- | :--- | :--- | :--- |
+| Estudiante Politécnico | `202311346` | `estudiante123` | App Móvil |
+| Miembro del Club | `202055789` | `miembro123` | App Móvil |
+| Líder de Club | `201899001` | `lider123` | Web / Móvil |
+| Administrador GBP | `GBP-001` | `gbp123` | Panel Web |
+
+
 
 ### 5.1 Fase 1: Frontend Web & Prototipado de Datos Local (HTML, CSS/Tailwind/Bootstrap, JS, AJAX)
 El objetivo de esta fase es crear la interfaz visual completa y simular la interactividad total del sistema. Toda la persistencia será volátil o simulada mediante la lectura y escritura en memoria de los archivos `.json` locales.
