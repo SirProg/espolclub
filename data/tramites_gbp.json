@@ -1,0 +1,24 @@
+[
+  {
+    "id": 901,
+    "club_id": 2,
+    "pao_period": "2026-I",
+    "document_type": "Nómina de Miembros",
+    "file_url": "local/docs/kokoa-nomina-2026-1.pdf",
+    "uploaded_at": "2026-06-19T12:00:00Z",
+    "status": "Under Review",
+    "review_feedback": null,
+    "reviewed_by_gbp_id": 4
+  },
+  {
+    "id": 902,
+    "club_id": 2,
+    "pao_period": "2025-II",
+    "document_type": "Nómina de Miembros",
+    "file_url": "local/docs/kokoa-nomina-2025-2.pdf",
+    "uploaded_at": "2026-02-10T10:00:00Z",
+    "status": "Approved",
+    "review_feedback": null,
+    "reviewed_by_gbp_id": 4
+  }
+]

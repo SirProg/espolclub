@@ -1,0 +1,34 @@
+[
+  {
+    "id": 9001,
+    "user_id": 1,
+    "type": "application_rejected",
+    "message": "Tu solicitud a KOKOA fue rechazada.",
+    "date": "2026-06-11T09:00:00Z",
+    "read": true
+  },
+  {
+    "id": 9002,
+    "user_id": 1,
+    "type": "event_registered",
+    "message": "Inscripción confirmada: Taller de Git. Ya tienes tu QR.",
+    "date": "2026-06-19T12:00:00Z",
+    "read": false
+  },
+  {
+    "id": 9003,
+    "user_id": 3,
+    "type": "application_pending",
+    "message": "Nueva solicitud de Lucía Torres en KOKOA.",
+    "date": "2026-06-18T09:10:00Z",
+    "read": false
+  },
+  {
+    "id": 9004,
+    "user_id": 3,
+    "type": "gbp_review",
+    "message": "GBP está revisando tu nómina del PAO 2026-I.",
+    "date": "2026-06-19T13:00:00Z",
+    "read": false
+  }
+]

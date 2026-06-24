@@ -1,0 +1,147 @@
+{
+  "mock_credentials": [
+    {
+      "enrollment": "202311346",
+      "password_mock": "estudiante123",
+      "email": "kmaldon@espol.edu.ec",
+      "display_role": "Estudiante Politécnico",
+      "club_id": null,
+      "role_id": null
+    },
+    {
+      "enrollment": "202055789",
+      "password_mock": "miembro123",
+      "email": "miembro@espol.edu.ec",
+      "display_role": "Miembro del Club",
+      "club_id": 2,
+      "role_id": 10
+    },
+    {
+      "enrollment": "201899001",
+      "password_mock": "lider123",
+      "email": "lider@espol.edu.ec",
+      "display_role": "Líder de Club",
+      "club_id": 2,
+      "role_id": 7
+    },
+    {
+      "enrollment": "GBP-001",
+      "password_mock": "gbp123",
+      "email": "bienestar@espol.edu.ec",
+      "display_role": "Administrador GBP",
+      "club_id": null,
+      "role_id": null
+    }
+  ],
+  "profiles": [
+    {
+      "id": 1,
+      "enrollment": "202311346",
+      "first_name": "Kevin",
+      "last_name": "Maldonado",
+      "birth_date": "2005-05-14",
+      "email": "kmaldon@espol.edu.ec",
+      "semester": 6,
+      "faculty": "FIEC",
+      "career": "Computación",
+      "description": "Enfocado en data science y software libre.",
+      "skills": [
+        "Python",
+        "React",
+        "SQL"
+      ],
+      "social_media": [
+        {
+          "network": "GitHub",
+          "link": "https://github.com/kmaldon"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "enrollment": "202055789",
+      "first_name": "María",
+      "last_name": "Cevallos",
+      "birth_date": "2002-11-03",
+      "email": "miembro@espol.edu.ec",
+      "semester": 7,
+      "faculty": "FIEC",
+      "career": "Telemática",
+      "description": "Apasionada por las redes.",
+      "skills": [
+        "Networking",
+        "Linux"
+      ],
+      "social_media": []
+    },
+    {
+      "id": 3,
+      "enrollment": "201899001",
+      "first_name": "Diego",
+      "last_name": "Ponce",
+      "birth_date": "2001-02-20",
+      "email": "lider@espol.edu.ec",
+      "semester": 9,
+      "faculty": "FIEC",
+      "career": "Computación",
+      "description": "Líder de KOKOA.",
+      "skills": [
+        "Liderazgo",
+        "Git"
+      ],
+      "social_media": [
+        {
+          "network": "LinkedIn",
+          "link": "https://linkedin.com/in/dponce"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "enrollment": "GBP-001",
+      "first_name": "Ana",
+      "last_name": "Rivas",
+      "birth_date": "1990-08-12",
+      "email": "bienestar@espol.edu.ec",
+      "semester": null,
+      "faculty": null,
+      "career": null,
+      "description": "Administradora de Bienestar Politécnico.",
+      "skills": [],
+      "social_media": []
+    },
+    {
+      "id": 5,
+      "enrollment": "202144556",
+      "first_name": "Lucía",
+      "last_name": "Torres",
+      "birth_date": "2004-01-09",
+      "email": "ltorres@espol.edu.ec",
+      "semester": 4,
+      "faculty": "FCNM",
+      "career": "Matemática",
+      "description": "Curiosa por el código abierto.",
+      "skills": [
+        "Python"
+      ],
+      "social_media": []
+    },
+    {
+      "id": 6,
+      "enrollment": "201977882",
+      "first_name": "Andrés",
+      "last_name": "Vera",
+      "birth_date": "2001-06-30",
+      "email": "avera@espol.edu.ec",
+      "semester": 8,
+      "faculty": "FIEC",
+      "career": "Computación",
+      "description": "Encargado de documentos en KOKOA.",
+      "skills": [
+        "Docs",
+        "QR"
+      ],
+      "social_media": []
+    }
+  ]
+}

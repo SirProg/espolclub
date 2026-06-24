@@ -1,0 +1,44 @@
+[
+  {
+    "id": 50,
+    "club_id": 2,
+    "event_name": "CLI - Comandos Básicos Parte #1",
+    "mode": "Online",
+    "planned_date": "2026-06-20",
+    "planned_hour": "17:00",
+    "end_datetime": "2026-06-19T20:00:00Z",
+    "planned_place": "Youtube - Club Kokoa",
+    "description": "Aprende los comandos básicos dentro de la línea de comandos y pierde el miedo.",
+    "marketing_image": "assets/img/events/evento1.png",
+    "visibility": "Public",
+    "registration_form_id": 302,
+    "registration_deadline": "2026-06-19T01:00:00Z",
+    "blocked_message": "Registro cerrado.",
+    "expected_participants": 30,
+    "stats": {
+      "registered": 2,
+      "attended": 1
+    }
+  },
+  {
+    "id": 51,
+    "club_id": 2,
+    "event_name": "Reunión interna de directiva",
+    "mode": "In-person",
+    "planned_date": "2026-06-25",
+    "planned_hour": "18:00",
+    "end_datetime": "2026-06-25T19:30:00Z",
+    "planned_place": "FIEC 11D",
+    "description": "Planificación del PAO.",
+    "marketing_image": "local/img/reunion.png",
+    "visibility": "MembersOnly",
+    "registration_form_id": null,
+    "registration_deadline": "2026-06-25T17:00:00Z",
+    "blocked_message": "Evento exclusivo para miembros de KOKOA.",
+    "expected_participants": 10,
+    "stats": {
+      "registered": 0,
+      "attended": 0
+    }
+  }
+]

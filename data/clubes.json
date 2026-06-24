@@ -1,0 +1,56 @@
+[
+  {
+    "id": 2,
+    "name": "Club de Software Libre KOKOA",
+    "acronym": "KOKOA",
+    "description": "Comunidad enfocada en promover el código abierto.",
+    "location": "FIEC 11D",
+    "faculty": "FIEC",
+    "interest_areas": [
+      "Tecnología",
+      "Académico"
+    ],
+    "image": "assets/img/clubes/club_1.png",
+    "leader_enrollment": "201899001",
+    "status": "Active",
+    "members_count": 3,
+    "social_media": [
+      {
+        "network": "GitHub",
+        "link": "https://github.com/kokoaespol"
+      }
+    ],
+    "internal_documents": [
+      {
+        "doc_id": 101,
+        "title": "Estatutos del Club",
+        "file_url": "local/docs/kokoa-estatutos.pdf",
+        "is_public": false
+      },
+      {
+        "doc_id": 102,
+        "title": "Brochure 2026",
+        "file_url": "local/docs/kokoa-brochure.pdf",
+        "is_public": true
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Club de Mecatrónica ",
+    "acronym": "MECATRÓNICA",
+    "description": "Especializados en mecatrónica.",
+    "location": "FIMCP Lab 3",
+    "faculty": "FIMCP",
+    "interest_areas": [
+      "Tecnología",
+      "Ciencia"
+    ],
+    "image": "assets/img/clubes/club_5.png",
+    "leader_enrollment": "202099777",
+    "status": "Pending Leader",
+    "members_count": 0,
+    "social_media": [],
+    "internal_documents": []
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "id": 8001,
+    "registration_id": 7002,
+    "event_id": 50,
+    "student_id": 2,
+    "scanned_at": "2026-07-15T14:35:00Z",
+    "scanned_by_staff_id": 6,
+    "qr_token_validated": "MOCKQR-7002-d4e5f6",
+    "status": "Attended"
+  }
+]

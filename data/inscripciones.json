@@ -1,0 +1,34 @@
+[
+  {
+    "id": 7001,
+    "event_id": 50,
+    "student_id": 1,
+    "form_id": 302,
+    "registered_at": "2026-06-19T12:00:00Z",
+    "responses": [
+      {
+        "field_id": "f1",
+        "answer": "Principiante"
+      }
+    ],
+    "qr_token": "MOCKQR-7001-a1b2c3",
+    "qr_status": "Active",
+    "attendance_status": "Registered"
+  },
+  {
+    "id": 7002,
+    "event_id": 50,
+    "student_id": 2,
+    "form_id": 302,
+    "registered_at": "2026-06-19T12:30:00Z",
+    "responses": [
+      {
+        "field_id": "f1",
+        "answer": "Intermedio"
+      }
+    ],
+    "qr_token": "MOCKQR-7002-d4e5f6",
+    "qr_status": "Used",
+    "attendance_status": "Attended"
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "id": 7,
+    "club_id": 2,
+    "role_name": "Presidente/a",
+    "is_default": true,
+    "is_leadership": true,
+    "permissions": {
+      "access_web_panel": true,
+      "manage_club_info": true,
+      "manage_members": true,
+      "manage_roles": true,
+      "manage_forms": true,
+      "manage_events": true,
+      "scan_event_qr": true,
+      "manage_documents": true,
+      "submit_gbp_reports": true
+    }
+  },
+  {
+    "id": 8,
+    "club_id": 2,
+    "role_name": "Vicepresidente/a",
+    "is_default": true,
+    "is_leadership": true,
+    "permissions": {
+      "access_web_panel": true,
+      "manage_club_info": true,
+      "manage_members": true,
+      "manage_roles": false,
+      "manage_forms": true,
+      "manage_events": true,
+      "scan_event_qr": false,
+      "manage_documents": true,
+      "submit_gbp_reports": false
+    }
+  },
+  {
+    "id": 9,
+    "club_id": 2,
+    "role_name": "Secretario/a",
+    "is_default": true,
+    "is_leadership": true,
+    "permissions": {
+      "access_web_panel": true,
+      "manage_club_info": false,
+      "manage_members": true,
+      "manage_roles": false,
+      "manage_forms": false,
+      "manage_events": false,
+      "scan_event_qr": false,
+      "manage_documents": true,
+      "submit_gbp_reports": false
+    }
+  },
+  {
+    "id": 10,
+    "club_id": 2,
+    "role_name": "Miembro",
+    "is_default": true,
+    "is_leadership": false,
+    "permissions": {
+      "access_web_panel": false,
+      "manage_club_info": false,
+      "manage_members": false,
+      "manage_roles": false,
+      "manage_forms": false,
+      "manage_events": false,
+      "scan_event_qr": false,
+      "manage_documents": false,
+      "submit_gbp_reports": false
+    }
+  },
+  {
+    "id": 11,
+    "club_id": 2,
+    "role_name": "Encargado de Documentos",
+    "is_default": false,
+    "is_leadership": false,
+    "permissions": {
+      "access_web_panel": true,
+      "manage_club_info": false,
+      "manage_members": false,
+      "manage_roles": false,
+      "manage_forms": false,
+      "manage_events": false,
+      "scan_event_qr": false,
+      "manage_documents": true,
+      "submit_gbp_reports": false
+    }
+  }
+]

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESPOLCLUB — Eventos</title>
+  <script src="../../js/theme-init.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="../../css/themes.css" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col"
+      data-root="../../" data-env="movil" data-active="eventos"
+      data-protected data-roles="Estudiante Politécnico,Miembro del Club,Líder de Club">
+
+  <header id="app-header"></header>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+    <h1 class="text-2xl font-extrabold tracking-tight mb-1">Eventos disponibles</h1>
+    <p class="app-muted text-sm mb-5">Inscríbete y obtén tu credencial QR de acceso.</p>
+
+    <div id="grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+    <div id="empty" class="hidden text-center py-16 app-muted">
+      <p class="text-4xl mb-2">📅</p>
+      <p>No hay eventos disponibles por ahora.</p>
+    </div>
+  </main>
+
+  <!-- Detalle de evento (10) + inscripción (11) -->
+  <div id="event-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
+       style="background: rgba(0,0,0,.5)">
+    <div class="card w-full max-w-lg max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between p-5 divider">
+        <h3 class="font-bold text-lg" id="event-title">Evento</h3>
+        <button id="event-close" class="btn btn-ghost px-2 py-1">✕</button>
+      </div>
+      <div id="event-body" class="p-5"></div>
+    </div>
+  </div>
+
+  <script type="module" src="../../js/app.js"></script>
+  <script type="module" src="../../js/pages/movil/eventos.js"></script>
+</body>
+</html>

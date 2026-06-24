@@ -1,0 +1,61 @@
+[
+  {
+    "id": 301,
+    "club_id": 2,
+    "form_type": "Membership",
+    "event_id": null,
+    "title": "Formulario de Inscripción - KOKOA",
+    "is_active": true,
+    "version": 1,
+    "fields": [
+      {
+        "field_id": "q1",
+        "label": "¿Por qué quieres unirte?",
+        "type": "textarea",
+        "required": true,
+        "order": 1,
+        "options": [],
+        "validation": {
+          "max_length": 500
+        }
+      },
+      {
+        "field_id": "q2",
+        "label": "Disponibilidad horaria",
+        "type": "select",
+        "required": true,
+        "order": 2,
+        "options": [
+          "Mañana (08:00-12:00)",
+          "Tarde (14:00-17:00)",
+          "Noche (18:00-21:00)"
+        ],
+        "validation": {}
+      }
+    ]
+  },
+  {
+    "id": 302,
+    "club_id": 2,
+    "form_type": "Event",
+    "event_id": 50,
+    "title": "Registro - Taller de Git",
+    "is_active": true,
+    "version": 1,
+    "fields": [
+      {
+        "field_id": "f1",
+        "label": "Tu nivel con Git",
+        "type": "radio",
+        "required": true,
+        "order": 1,
+        "options": [
+          "Principiante",
+          "Intermedio",
+          "Avanzado"
+        ],
+        "validation": {}
+      }
+    ]
+  }
+]

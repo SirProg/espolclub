@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESPOLCLUB — Solicitudes</title>
+  <script src="../../js/theme-init.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="../../css/themes.css" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col"
+      data-root="../../" data-env="movil" data-active="msolic"
+      data-protected data-roles="Líder de Club">
+
+  <header id="app-header"></header>
+
+  <main class="flex-1 max-w-2xl w-full mx-auto px-4 py-6">
+    <h1 class="text-2xl font-extrabold tracking-tight mb-1">Solicitudes pendientes</h1>
+    <p class="app-muted text-sm mb-5">Resuelve postulaciones desde tu móvil (vista de conveniencia).</p>
+
+    <div id="list" class="flex flex-col gap-4">Cargando…</div>
+    <div id="empty" class="hidden text-center py-16 app-muted">
+      <p class="text-4xl mb-2">📭</p>
+      <p>No hay solicitudes pendientes.</p>
+    </div>
+  </main>
+
+  <script type="module" src="../../js/app.js"></script>
+  <script type="module" src="../../js/pages/movil/solicitudes.js"></script>
+</body>
+</html>

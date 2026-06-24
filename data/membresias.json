@@ -1,0 +1,42 @@
+[
+  {
+    "id": 2001,
+    "student_id": 3,
+    "club_id": 2,
+    "role_id": 7,
+    "pao_period": "2026-I",
+    "valid_from": "2026-05-01",
+    "valid_until": "2026-09-15",
+    "status": "Active"
+  },
+  {
+    "id": 2002,
+    "student_id": 2,
+    "club_id": 2,
+    "role_id": 10,
+    "pao_period": "2026-I",
+    "valid_from": "2026-05-01",
+    "valid_until": "2026-09-15",
+    "status": "Active"
+  },
+  {
+    "id": 2003,
+    "student_id": 6,
+    "club_id": 2,
+    "role_id": 11,
+    "pao_period": "2026-I",
+    "valid_from": "2026-05-01",
+    "valid_until": "2026-09-15",
+    "status": "Active"
+  },
+  {
+    "id": 1999,
+    "student_id": 2,
+    "club_id": 2,
+    "role_id": 10,
+    "pao_period": "2025-II",
+    "valid_from": "2025-10-13",
+    "valid_until": "2026-02-27",
+    "status": "Frozen"
+  }
+]

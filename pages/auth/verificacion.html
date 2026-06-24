@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESPOLCLUB — Verificación de correo</title>
+  <script src="../../js/theme-init.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="../../css/themes.css" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col" data-root="../../">
+
+  <div class="absolute top-4 right-4">
+    <button id="theme-btn" class="btn btn-ghost px-2 py-1" title="Cambiar tema"><span data-theme-icon>🌙</span></button>
+  </div>
+
+  <main class="flex-1 flex items-center justify-center p-4">
+    <div class="w-full max-w-sm text-center">
+      <span class="inline-flex items-center justify-center w-14 h-14 rounded-2xl btn-primary text-2xl font-black mb-3">E</span>
+      <h1 class="text-2xl font-extrabold tracking-tight">Verifica tu correo</h1>
+
+      <div class="card p-6 mt-5 text-left">
+        <p class="text-4xl text-center mb-3">📧</p>
+        <p class="text-sm">Enviamos un enlace de verificación a:</p>
+        <p id="email-target" class="font-semibold break-all my-2">tu correo institucional</p>
+        <p class="app-muted text-sm">Abre el enlace para confirmar tu cuenta. En esta versión de demostración la verificación está simulada.</p>
+
+        <button id="verify-btn" class="btn btn-primary w-full mt-5">Simular verificación</button>
+        <div id="done" class="hidden badge badge-success mt-4 w-full justify-center py-2">✓ Cuenta verificada. Redirigiendo al inicio de sesión…</div>
+      </div>
+
+      <p class="app-muted text-sm mt-4">
+        <a href="../../index.html" class="app-primary font-semibold">Volver al inicio de sesión</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module" src="../../js/app.js"></script>
+  <script type="module" src="../../js/pages/auth/verificacion.js"></script>
+</body>
+</html>

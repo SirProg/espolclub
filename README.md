@@ -47,6 +47,21 @@
 8. [Equipo y Autor](#8-equipo-y-autor)
 9. [Licencia](#9-licencia)
 
+📚 [Documentación del Proyecto](#-documentación-del-proyecto) — análisis, diseño y descripción de archivos
+
+## 📚 Documentación del Proyecto
+
+Este repositorio se acompaña de documentos especializados que detallan cada etapa del desarrollo. El `README.md` es el punto de entrada general; los siguientes documentos profundizan en el análisis, el diseño y la implementación:
+
+| Documento | Contenido | Cuándo consultarlo |
+| :--- | :--- | :--- |
+| **[README.md](README.md)** | Visión general, modelo de negocio, reglas, modelos de datos, roadmap, instalación y glosario. | Para entender **qué es** el proyecto y cómo ejecutarlo. |
+| **[requirements.md](requirements.md)** | Documento de requerimientos: problema, usuarios, procesos, reglas de negocio, **57 requerimientos funcionales (RF) y 13 no funcionales (RNF)** y su clasificación por fase. | Para saber **qué debe hacer** el sistema y verificar el alcance. |
+| **[frontend_design.md](frontend_design.md)** | Diseño del frontend (Fase 1): inventario de **33 pantallas**, mapa de navegación, formularios, elementos de visualización, datos simulados y **estructura de carpetas**. | Para entender **cómo está estructurada** la interfaz y la navegación. |
+| **[pages_description.md](pages_description.md)** | Descripción archivo por archivo de cada **HTML y JS**: su función, qué aplica/modifica y, en los `.js`, la descripción de cada función interna. | Para entender **qué hace cada archivo** del código al implementar o mantener. |
+
+> **Orden de lectura sugerido:** `requirements.md` (qué) → `frontend_design.md` (cómo se diseña) → `pages_description.md` (qué hace cada archivo).
+
 ## 1. Visión General del Proyecto
 
 ### 1.1 Introducción y Propósito
@@ -232,6 +247,7 @@ Ejemplo de **rol directivo predeterminado** (`Presidente/a`), con todos los perm
   "acronym": "KOKOA",
   "description": "Comunidad politécnica enfocada en promover la filosofía del código abierto.",
   "location": "FIEC 11D",
+  "image": "assets/img/clubes/club_1.png",
   "social_media": [
     { "network": "Instagram", "link": "https://instagram.com/kokoaespol" },
     { "network": "GitHub", "link": "https://github.com/kokoaespol" }

@@ -1,0 +1,35 @@
+{
+  "facultades": [
+    "FIEC",
+    "FCNM",
+    "FIMCP",
+    "FICT",
+    "FCSH",
+    "FCV",
+    "FADCOM"
+  ],
+  "areas_interes": [
+    "Tecnología",
+    "Ciencia",
+    "Cultura",
+    "Deporte",
+    "Emprendimiento",
+    "Social",
+    "Arte",
+    "Académico"
+  ],
+  "pao_periods": [
+    {
+      "pao_period": "2025-II",
+      "start_date": "2025-10-13",
+      "end_date": "2026-02-27",
+      "status": "Closed"
+    },
+    {
+      "pao_period": "2026-I",
+      "start_date": "2026-05-01",
+      "end_date": "2026-09-15",
+      "status": "Active"
+    }
+  ]
+}

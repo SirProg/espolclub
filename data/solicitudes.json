@@ -1,0 +1,40 @@
+[
+  {
+    "id": 501,
+    "student_id": 5,
+    "club_id": 2,
+    "form_id": 301,
+    "submitted_at": "2026-06-18T09:10:00Z",
+    "responses": [
+      {
+        "field_id": "q1",
+        "answer": "Quiero aprender sobre licencias libres."
+      },
+      {
+        "field_id": "q2",
+        "answer": "Tarde (14:00-17:00)"
+      }
+    ],
+    "status": "Pending",
+    "leader_feedback": null
+  },
+  {
+    "id": 502,
+    "student_id": 1,
+    "club_id": 2,
+    "form_id": 301,
+    "submitted_at": "2026-06-10T15:00:00Z",
+    "responses": [
+      {
+        "field_id": "q1",
+        "answer": "Me apasiona el código abierto."
+      },
+      {
+        "field_id": "q2",
+        "answer": "Noche (18:00-21:00)"
+      }
+    ],
+    "status": "Rejected",
+    "leader_feedback": "Cupo lleno este PAO; vuelve a postular el próximo período."
+  }
+]
